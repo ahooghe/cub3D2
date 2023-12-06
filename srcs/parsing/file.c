@@ -6,7 +6,7 @@
 /*   By: ahooghe <ahooghe@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 15:23:53 by ahooghe           #+#    #+#             */
-/*   Updated: 2023/12/05 16:20:57 by ahooghe          ###   ########.fr       */
+/*   Updated: 2023/12/06 00:36:35 by ahooghe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ int	validate_file(char *str)
 	i = 0;
 	while (str[i])
 		i++;
-	if (str[i - 4] == '.' && str[i - 3] == 'c' && str[i - 2] == 'u' && str[i - 1] == 'b')
+	if (str[i - 4] == '.' && str[i - 3] == 'c' && \
+		str[i - 2] == 'u' && str[i - 1] == 'b')
 		return (SUCCESS);
 	return (FAILURE);
 }
@@ -50,7 +51,7 @@ void	readfile(t_file *file)
 {
 	char	*tmp;
 	int		i;
-	
+
 	i = 0;
 	file->amt_lines = count_lines(file);
 	if (file->amt_lines == 0)
@@ -72,11 +73,11 @@ void	readfile(t_file *file)
 		exit_cubed(file, "Failed to close the file.\n", FAILURE);
 }
 
-int get_data_file(t_file *file, char **argv)
+int	get_data_file(t_file *file, char **argv)
 {
 	if (validate_file(argv[1]) == FAILURE)
 		return (printf("The file does not have the .cub suffix.\n"), FAILURE);
-	if (open(argv[1] , O_RDONLY) == -1)
+	if (open(argv[1], O_RDONLY) == -1)
 		return (printf("The entered argument cannot be opened.\n"), FAILURE);
 	file->filepath = argv[1];
 	readfile(file);

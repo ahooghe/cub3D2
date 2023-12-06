@@ -1,36 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils2.c                                           :+:      :+:    :+:   */
+/*   init_mlx.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahooghe <ahooghe@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/05 16:37:50 by ahooghe           #+#    #+#             */
-/*   Updated: 2023/12/06 02:41:05 by ahooghe          ###   ########.fr       */
+/*   Created: 2023/12/06 00:45:23 by ahooghe           #+#    #+#             */
+/*   Updated: 2023/12/06 02:36:53 by ahooghe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 
-int	ft_isspace(char c)
+void	init_mlx(t_file *file)
 {
-	if (c == ' ' || c == '\t' || c == '\n')
-		return (1);
-	return (0);
-}
-
-int	ft_isalpha(char c)
-{
-	if (c >= 'A' && c <= 'Z')
-		return (1);
-	if (c >= 'a' && c <= 'z')
-		return (1);
-	return (0);
-}
-
-void	setdir(t_file *file, char c, int i, int j)
-{
-	file->map.dir = c;
-	file->player.pos_x = i + 0.5;
-	file->player.pos_y = j + 0.5;
+	file->mlx.mlx = mlx_init();
+	if (!file->mlx.mlx)
+		exit_cubed(file, "mlx_init() failed\n", FAILURE);
+	file->mlx.win = mlx_new_window(file->mlx.mlx, WIDTH, HEIGHT, "cub3D");
+	if (!file->mlx.win)
+		exit_cubed(file, "mlx_new_window() failed\n", FAILURE);
 }

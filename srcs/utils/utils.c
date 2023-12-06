@@ -6,28 +6,19 @@
 /*   By: ahooghe <ahooghe@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:13:43 by ahooghe           #+#    #+#             */
-/*   Updated: 2023/12/05 16:38:50 by ahooghe          ###   ########.fr       */
+/*   Updated: 2023/12/06 00:18:22 by ahooghe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 
-size_t  ft_strlength(const char *str)
-{
-    size_t  i;
-
-    i = 0;
-    while (str[i])
-        i++;
-    return (i);
-}
-char	*ft_strdup(const char *str1)
+char	*ft_strdup(char *str1)
 {
 	char	*new;
 	int		i;
 	int		size;
 
-	size = ft_strlength(str1);
+	size = ft_strlen(str1);
 	new = malloc(sizeof(char) * (size + 1));
 	if (!(new))
 		return (NULL);
@@ -41,19 +32,19 @@ char	*ft_strdup(const char *str1)
 	return (new);
 }
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_substr(char *s, unsigned int start, size_t len)
 {
 	size_t	i;
 	char	*str;
 
 	if (!s)
 		return (NULL);
-	if ((size_t)start > ft_strlength(s))
+	if ((size_t)start > ft_strlen(s))
 		return (ft_strdup(""));
-	if (len + (size_t)(start) < ft_strlength(s))
+	if (len + (size_t)(start) < ft_strlen(s))
 		str = malloc(sizeof(*s) * (len + 1));
-	if (len + (size_t)(start) >= ft_strlength(s))
-		str = malloc(sizeof(*s) * (ft_strlength(s) - (size_t)(start) + 1));
+	if (len + (size_t)(start) >= ft_strlen(s))
+		str = malloc(sizeof(*s) * (ft_strlen(s) - (size_t)(start) + 1));
 	if (!str)
 		return (0);
 	i = 0;
@@ -64,4 +55,27 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	}
 	str[i] = '\0';
 	return (str);
+}
+
+int	ft_atoi(char *str)
+{
+	unsigned int	num;
+	int				i;
+	int				np;
+
+	np = 1;
+	i = 0;
+	num = 0;
+	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\f' || \
+			str[i] == '\r' || str[i] == '\n' || str[i] == '\v')
+		i++;
+	if (str[i] == '+' || str[i] == '-')
+		if (str[i++] == '-')
+			np = -1;
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		num = num * 10 + (str[i] - '0');
+		i++;
+	}
+	return ((int)(np * num));
 }

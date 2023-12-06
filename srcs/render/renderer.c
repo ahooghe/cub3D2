@@ -1,36 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils2.c                                           :+:      :+:    :+:   */
+/*   renderer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahooghe <ahooghe@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/05 16:37:50 by ahooghe           #+#    #+#             */
-/*   Updated: 2023/12/06 02:41:05 by ahooghe          ###   ########.fr       */
+/*   Created: 2023/12/06 00:57:30 by ahooghe           #+#    #+#             */
+/*   Updated: 2023/12/06 02:46:41 by ahooghe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 
-int	ft_isspace(char c)
+//render_new_frame(file);
+//draw_frame(file);
+int	render(t_file *file)
 {
-	if (c == ' ' || c == '\t' || c == '\n')
-		return (1);
-	return (0);
-}
-
-int	ft_isalpha(char c)
-{
-	if (c >= 'A' && c <= 'Z')
-		return (1);
-	if (c >= 'a' && c <= 'z')
-		return (1);
-	return (0);
-}
-
-void	setdir(t_file *file, char c, int i, int j)
-{
-	file->map.dir = c;
-	file->player.pos_x = i + 0.5;
-	file->player.pos_y = j + 0.5;
+	handle_movement(file);
+	return (SUCCESS);
 }
