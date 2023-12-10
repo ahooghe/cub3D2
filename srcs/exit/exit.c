@@ -6,13 +6,13 @@
 /*   By: ahooghe <ahooghe@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 15:24:23 by ahooghe           #+#    #+#             */
-/*   Updated: 2023/12/06 01:04:55 by ahooghe          ###   ########.fr       */
+/*   Updated: 2023/12/10 17:02:14 by ahooghe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 
-void	free_2dim(char **arr)
+void	free_2dim(void **arr)
 {
 	int	i;
 
@@ -26,24 +26,44 @@ void	free_2dim(char **arr)
 	arr = NULL;
 }
 
+void	free_map(t_map *map)
+{
+	if (map->map)
+		free_2dim((void **)map->map);
+}
+
+void	free_tex(t_text *tex)
+{
+	if (tex->colors)
+		free_2dim((void **)tex->colors);
+	if (tex->textures)
+		free_2dim((void **)tex->textures);
+	if (tex->textures_addr)
+		free_2dim((void **)tex->textures_addr);
+	if (tex->pixels)
+		free_2dim((void **)tex->pixels);
+}
+
+void	free_mlx(t_mlx *mlx)
+{
+	if (mlx->img)
+		mlx_destroy_image(mlx->mlx, mlx->img);
+	if (mlx->win)
+		mlx_destroy_window(mlx->mlx, mlx->win);
+	if (mlx->mlx)
+		mlx_destroy_display(mlx->mlx);
+}
+
 void	exit_cubed(t_file *file, char *err, int exitcode)
 {
-	if (file->file)
-		free_2dim(file->file);
-	if (file->textures.colors)
-		free_2dim(file->textures.colors);
-	if (file->textures.textures)
-		free_2dim(file->textures.textures);
-	if (file->map.map)
-		free_2dim(file->map.map);
-	if (file->mlx.mlx && file->mlx.win)
-		mlx_destroy_window(file->mlx.mlx, file->mlx.win);
-	if (file->mlx.mlx)
-	{
-		mlx_destroy_display(file->mlx.mlx);
-		mlx_loop_end(file->mlx.mlx);
-		free(file->mlx.mlx);
-	}
+	(void)(file);
+	/*if (file->file)
+		free_2dim((void **)file->file);
+	if (file->filepath)
+		free(file->filepath);
+	free_map(&file->map);
+	free_tex(&file->textures);
+	free_mlx(&file->mlx);*/
 	if (err)
 		printf("%s", err);
 	exit(exitcode);

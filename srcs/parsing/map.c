@@ -6,26 +6,26 @@
 /*   By: ahooghe <ahooghe@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:31:54 by ahooghe           #+#    #+#             */
-/*   Updated: 2023/12/06 02:47:33 by ahooghe          ###   ########.fr       */
+/*   Updated: 2023/12/10 20:03:07 by ahooghe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 
-void	mallocmaplines(t_file *file, int index)
+static void	mallocmaplines(t_file *file, int index)
 {
 	int	i;
 
 	i = 0;
 	while (file->file[index + i])
 		i++;
-	file->map.map = malloc(sizeof(char *) * (i + 1));
+	file->map.map = ft_calloc(i + 1, sizeof(char *));
 	if (!file->map.map)
 		exit_cubed(file, "Malloc error.\n", FAILURE);
 	file->map.map[i] = NULL;
 }
 
-int	checkwalls(t_map *map)
+static int	checkwalls(t_map *map)
 {
 	int	i;
 	int	j;
@@ -54,7 +54,7 @@ int	checkwalls(t_map *map)
 	return (SUCCESS);
 }
 
-int	checkmap(t_map *map)
+static int	checkmap(t_map *map)
 {
 	int	i;
 	int	j;
@@ -80,7 +80,7 @@ int	checkmap(t_map *map)
 	return (SUCCESS);
 }
 
-void	fill_map(t_file *file, int index, int i, int j)
+static void	fill_map(t_file *file, int index, int i, int j)
 {
 	while (file->file[index + i])
 	{
@@ -121,7 +121,7 @@ void	get_map_data(t_file *file, int index)
 	i = 0;
 	while (file->file[index + i])
 	{
-		file->map.map[i] = malloc(sizeof(char) * file->map.longestline + 1);
+		file->map.map[i] = ft_calloc(file->map.longestline + 1, sizeof(char));
 		if (!file->map.map[i])
 			exit_cubed(file, "Malloc error.\n", FAILURE);
 		file->map.map[i][file->map.longestline] = '\0';

@@ -6,7 +6,7 @@
 /*   By: ahooghe <ahooghe@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:13:43 by ahooghe           #+#    #+#             */
-/*   Updated: 2023/12/06 00:18:22 by ahooghe          ###   ########.fr       */
+/*   Updated: 2023/12/10 17:01:07 by ahooghe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,27 @@ int	ft_atoi(char *str)
 		i++;
 	}
 	return ((int)(np * num));
+}
+
+void	*ft_calloc(size_t count, size_t size)
+{
+	unsigned long long	total;
+	void				*ptr;
+	int					i;
+
+	if (count == 0 || size == 0)
+		total = 1;
+	total = count * size;
+	if (total > 21747483647)
+		return (NULL);
+	ptr = malloc(total);
+	if (!ptr)
+		return (NULL);
+	i = 0;
+	while (i < (int)total)
+	{
+		*(char *)(ptr + i) = 0;
+		i++;
+	}
+	return (ptr);
 }

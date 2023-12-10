@@ -6,13 +6,20 @@
 /*   By: ahooghe <ahooghe@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:33:45 by ahooghe           #+#    #+#             */
-/*   Updated: 2023/12/06 00:42:16 by ahooghe          ###   ########.fr       */
+/*   Updated: 2023/12/10 20:03:46 by ahooghe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 
-int	settexture(t_text *text, char *str, int index, int i)
+static int	ft_isprint(int c)
+{
+	if (c >= 32 && c <= 126)
+		return (1);
+	return (0);
+}
+
+static int	settexture(t_text *text, char *str, int index, int i)
 {
 	int	start;
 
@@ -21,28 +28,33 @@ int	settexture(t_text *text, char *str, int index, int i)
 	while (str[i] && ft_isspace(str[i]))
 		i++;
 	start = i;
-	while (str[i] && (ft_isalpha(str[i]) || str[i] == '.'))
+	while (str[i] && (ft_isprint(str[i])))
 		i++;
 	text->textures[index] = ft_substr(str, start, i - start);
 	return (SUCCESS);
 }
 
-void	validate_texture(t_file *file, char *str)
+static void	validate_texture(t_file *file, char *str)
 {
 	int	i;
 
 	i = 0;
 	while (str[i] && ft_isspace(str[i]))
 		i++;
-	i += 3;
-	while (str[i] && (ft_isalpha(str[i]) || str[i] == '.'))
+	i += 2;
+	while (str[i] && ft_isspace(str[i]))
+		i++;
+	while (str[i] && (ft_isprint(str[i])))
 		i++;
 	if (!(str[i - 4] == '.' && str[i - 3] == 'x' && \
 		str[i - 2] == 'p' && str[i - 1] == 'm'))
+	{
+		printf("%c\n", str[i - 4]);
 		exit_cubed(file, "A file does not have the .xpm suffix.\n", FAILURE);
+	}
 }
 
-void	settexturepath(t_file *file, char *str)
+static void	settexturepath(t_file *file, char *str)
 {
 	int	i;
 	int	code;

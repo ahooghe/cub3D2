@@ -6,13 +6,13 @@
 /*   By: ahooghe <ahooghe@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 15:23:53 by ahooghe           #+#    #+#             */
-/*   Updated: 2023/12/06 00:36:35 by ahooghe          ###   ########.fr       */
+/*   Updated: 2023/12/10 20:02:44 by ahooghe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 
-int	validate_file(char *str)
+static int	validate_file(char *str)
 {
 	int	i;
 
@@ -25,7 +25,7 @@ int	validate_file(char *str)
 	return (FAILURE);
 }
 
-int	count_lines(t_file *file)
+static int	count_lines(t_file *file)
 {
 	char	*tmp;
 	int		i;
@@ -47,7 +47,7 @@ int	count_lines(t_file *file)
 	return (i - 1);
 }
 
-void	readfile(t_file *file)
+static void	readfile(t_file *file)
 {
 	char	*tmp;
 	int		i;
@@ -56,7 +56,7 @@ void	readfile(t_file *file)
 	file->amt_lines = count_lines(file);
 	if (file->amt_lines == 0)
 		exit_cubed(file, "The entered file is empty.\n", FAILURE);
-	file->file = malloc(sizeof(char *) * (file->amt_lines + 1));
+	file->file = ft_calloc(file->amt_lines + 1, sizeof(char *));
 	if (!file->file)
 		exit_cubed(file, "Malloc failure.\n", FAILURE);
 	file->file[file->amt_lines] = NULL;

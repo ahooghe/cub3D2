@@ -6,7 +6,7 @@
 #    By: ahooghe <ahooghe@student.s19.be>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/06 02:42:35 by ahooghe           #+#    #+#              #
-#    Updated: 2023/12/06 02:45:30 by ahooghe          ###   ########.fr        #
+#    Updated: 2023/12/10 17:30:39 by ahooghe          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ GNL=libs/get_next_line/gnl.a
 GNL_DIR=libs/get_next_line
 MLX=libs/minilibx-linux/libmlx.a
 MLX_DIR=libs/minilibx-linux
-SRCS=srcs/utils/utils3.c srcs/utils/utils.c srcs/utils/utils2.c srcs/movement/handle.c srcs/render/renderer.c srcs/init/init_mlx.c srcs/init/init_key.c srcs/init/init_file.c srcs/exit/exit.c srcs/parsing/map.c srcs/parsing/textures.c srcs/parsing/file.c srcs/parsing/colors.c srcs/parsing/parse_file.c srcs/main.c
+SRCS=srcs/utils/utils3.c srcs/utils/utils.c srcs/utils/utils2.c srcs/movement/handle.c srcs/render/renderer.c srcs/render/mallocpixels.c srcs/render/mlx.c srcs/render/setpixels.c srcs/init/init_mlx.c srcs/init/init_key.c srcs/init/init_file.c srcs/exit/exit.c srcs/parsing/map.c srcs/parsing/textures.c srcs/parsing/file.c srcs/parsing/colors.c srcs/parsing/parse_file.c srcs/parsing/check.c srcs/parsing/create_textures.c srcs/main.c
 
 all:
 	$(MAKE) -C $(GNL_DIR)

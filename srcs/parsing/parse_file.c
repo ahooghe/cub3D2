@@ -6,13 +6,13 @@
 /*   By: ahooghe <ahooghe@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 15:52:10 by ahooghe           #+#    #+#             */
-/*   Updated: 2023/12/06 02:38:52 by ahooghe          ###   ########.fr       */
+/*   Updated: 2023/12/10 20:03:20 by ahooghe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 
-void	initplayerns(t_file *file)
+static void	initplayerns(t_file *file)
 {
 	file->player.dir_x = 0;
 	file->player.plane_y = 0;
@@ -28,7 +28,7 @@ void	initplayerns(t_file *file)
 	}
 }
 
-void	initplayerew(t_file *file)
+static void	initplayerew(t_file *file)
 {
 	file->player.dir_y = 0;
 	file->player.plane_x = 0;
@@ -44,7 +44,7 @@ void	initplayerew(t_file *file)
 	}
 }
 
-void	setplayerdir(t_file *file)
+static void	setplayerdir(t_file *file)
 {
 	if (file->map.dir == 'N' || file->map.dir == 'S')
 		initplayerns(file);
@@ -77,5 +77,7 @@ int	parse_file(t_file *file, char **argv)
 		i++;
 	}
 	setplayerdir(file);
+	check_textures(file);
+	check_colors(file);
 	return (SUCCESS);
 }

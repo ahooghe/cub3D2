@@ -6,16 +6,102 @@
 /*   By: ahooghe <ahooghe@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 00:57:30 by ahooghe           #+#    #+#             */
-/*   Updated: 2023/12/06 02:46:41 by ahooghe          ###   ########.fr       */
+/*   Updated: 2023/12/10 20:05:02 by ahooghe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 
-//render_new_frame(file);
-//draw_frame(file);
+static void	calculate_line(t_ray *ray, t_player *player)
+{
+	if (ray->side == -1)
+		ray->wall_pos = player->pos_y + ray->walldist * ray->raydir_y;
+	else
+		ray->wall_pos = player->pos_x + ray->walldist * ray->raydir_x;
+	ray->lineheight = (int)(HEIGHT / ray->walldist);
+	ray->drawstart = -(ray->lineheight + HEIGHT) / 2;
+	if (ray->drawstart < 0)
+		ray->drawstart = 0;
+	ray->drawend = (ray->lineheight + HEIGHT) / 2;
+	if (ray->drawend >= HEIGHT)
+		ray->drawend = HEIGHT - 1;
+	ray->wall_pos -= floor(ray->wall_pos);
+}
+
+static void	moredda(t_ray *ray, t_player *player, t_file *file)
+{
+	while (ray->hit == 0)
+	{
+		if (ray->sidedist_x < ray->sidedist_y)
+		{
+			ray->sidedist_x += ray->deltadist_x;
+			ray->map_x += ray->step_x;
+			ray->side = -1;
+		}
+		else
+		{
+			ray->sidedist_y += ray->deltadist_y;
+			ray->map_y += ray->step_y;
+			ray->side = 1;
+		}
+		if (file->map.map[ray->map_x][ray->map_y] == '1')
+			ray->hit = 1;
+	}
+	if (ray->side == -1)
+		ray->walldist = (ray->map_x - player->pos_x + \
+			(1 - ray->step_x) / 2) / ray->raydir_x;
+	else
+		ray->walldist = (ray->map_y - player->pos_y + \
+			(1 - ray->step_y) / 2) / ray->raydir_y;
+}
+
+static void	dda(t_ray *ray, t_player *player, t_file *file)
+{
+	if (player->dir_x == 1)
+	{
+		ray->step_x = 1;
+		ray->sidedist_x = ray->deltadist_x * (player->pos_x - ray->map_x);
+	}
+	if (player->dir_x == -1)
+	{
+		ray->step_x = -1;
+		ray->sidedist_x = ray->deltadist_x * (ray->map_x + 1.0 - player->pos_x);
+	}
+	if (player->dir_y == 1)
+	{
+		ray->step_y = 1;
+		ray->sidedist_y =  ray->deltadist_y * (ray->map_y + 1.0 - player->pos_y);
+	}
+	if (player->dir_y == -1)
+	{
+		ray->step_y = -1;
+		ray->sidedist_y = ray->deltadist_y * (player->pos_y - ray->map_y);
+	}
+	moredda(ray, player, file);
+	calculate_line(ray, player);
+}
+static void	raycasting(t_ray *ray, t_player *player, t_file *file, int x)
+{
+	while (x < WIDTH)
+	{
+		init_ray(&file->ray);
+		ray->camera_pos = 2 * x / (double)WIDTH - 1;
+		ray->raydir_x = player->dir_x + player->plane_x * ray->camera_pos;
+		ray->raydir_y = player->dir_y + player->plane_y * ray->camera_pos;
+		ray->deltadist_x = fabs(1 / ray->raydir_x);
+		ray->deltadist_y = fabs(1 / ray->raydir_y);
+		ray->map_x = (int)player->pos_x;
+		ray->map_y = (int)player->pos_y;
+		dda(ray, player, file);
+		draw_line(ray, &file->textures, file, x);
+		x++;
+	}
+}
 int	render(t_file *file)
 {
 	handle_movement(file);
+	malloc_texture_pixels(file, 0);
+	raycasting(&file->ray, &file->player, file, 0);
+	mlx(file, 0, 0);
 	return (SUCCESS);
 }

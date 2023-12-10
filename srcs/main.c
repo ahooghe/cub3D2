@@ -6,7 +6,7 @@
 /*   By: ahooghe <ahooghe@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 14:39:09 by ahooghe           #+#    #+#             */
-/*   Updated: 2023/12/06 02:49:47 by ahooghe          ###   ########.fr       */
+/*   Updated: 2023/12/06 16:17:28 by ahooghe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ int	main(int argc, char **argv)
 	if (parse_file(&file, argv) == FAILURE)
 		return (FAILURE);
 	init_mlx(&file);
+	create_textures(&file);
 	print_instructions();
 	mlx_hook(file.mlx.win, ClientMessage, NoEventMask, exit_cub3d, &file);
 	mlx_hook(file.mlx.win, KeyPress, KeyPressMask, key_press, &file);

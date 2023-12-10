@@ -6,13 +6,13 @@
 /*   By: ahooghe <ahooghe@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 00:26:32 by ahooghe           #+#    #+#             */
-/*   Updated: 2023/12/06 00:34:47 by ahooghe          ###   ########.fr       */
+/*   Updated: 2023/12/10 20:02:19 by ahooghe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 
-int	setcolorstring(t_text *text, char *str, int index, int i)
+static int	setcolorstring(t_text *text, char *str, int index, int i)
 {
 	int	start;
 
@@ -25,7 +25,7 @@ int	setcolorstring(t_text *text, char *str, int index, int i)
 	return (SUCCESS);
 }
 
-void	checkcolors(char **str, t_file *file)
+static void	checkcolors(char **str, t_file *file)
 {
 	int	i;
 	int	j;
@@ -40,7 +40,7 @@ void	checkcolors(char **str, t_file *file)
 				j++;
 			if (str[i][j] && (str[i][j] < '0' || str[i][j] > '9'))
 			{
-				free_2dim(str);
+				free_2dim((void **)str);
 				exit_cubed(file, "The color is not formatted correctly.\n", FAILURE);
 			}
 			j++;
@@ -49,7 +49,7 @@ void	checkcolors(char **str, t_file *file)
 	}
 }
 
-void	setcolorssimple(t_file *file, int index)
+static void	setcolorssimple(t_file *file, int index)
 {
 	char	**tmp;
 
@@ -71,7 +71,7 @@ void	setcolorssimple(t_file *file, int index)
 		file->textures.ceiling[GREEN] = ft_atoi(tmp[GREEN]);
 		file->textures.ceiling[BLUE] = ft_atoi(tmp[BLUE]);
 	}
-	free_2dim(tmp);
+	free_2dim((void **)tmp);
 }
 
 void	setcolors(t_file *file, char *str)
