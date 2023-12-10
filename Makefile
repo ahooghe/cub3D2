@@ -6,7 +6,7 @@
 #    By: ahooghe <ahooghe@student.s19.be>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/06 02:42:35 by ahooghe           #+#    #+#              #
-#    Updated: 2023/12/10 17:30:39 by ahooghe          ###   ########.fr        #
+#    Updated: 2023/12/10 23:53:38 by ahooghe          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,6 @@ clean:
 
 fclean: clean
 	$(MAKE) -C $(GNL_DIR) fclean
-	$(MAKE) -C $(MLX_DIR) fclean
 	$(RM) $(NAME)
 
 re: fclean all
