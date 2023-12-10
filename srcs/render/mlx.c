@@ -6,7 +6,7 @@
 /*   By: ahooghe <ahooghe@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 17:30:28 by ahooghe           #+#    #+#             */
-/*   Updated: 2023/12/10 20:00:59 by ahooghe          ###   ########.fr       */
+/*   Updated: 2023/12/11 00:10:21 by ahooghe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ static void	init_img(t_img *img)
 	img->endian = 0;
 }
 
-void	mlx(t_file *file, int x, int y)
+void	mlx(t_text *tex, t_file *file, int x, int y)
 {
 	t_img	img;
-	
+
 	init_img(&img);
 	img.img = mlx_new_image(file->mlx.mlx, WIDTH, HEIGHT);
 	if (!img.img)
@@ -37,11 +37,11 @@ void	mlx(t_file *file, int x, int y)
 		while (x < WIDTH)
 		{
 			if (file->textures.pixels[y][x])
-				img.addr[y * (img.line_length / 4) + x] = file->textures.pixels[y][x];
+				img.addr[y * (img.line_length / 4) + x] = tex->pixels[y][x];
 			else if (y < HEIGHT / 2)
-				img.addr[y * (img.line_length / 4) + x] = file->textures.ceiling_color;
+				img.addr[y * (img.line_length / 4) + x] = tex->ceiling_color;
 			else
-				img.addr[y * (img.line_length / 4) + x] = file->textures.floor_color;
+				img.addr[y * (img.line_length / 4) + x] = tex->floor_color;
 			x++;
 		}
 		y++;

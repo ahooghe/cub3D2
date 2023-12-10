@@ -6,7 +6,7 @@
 /*   By: ahooghe <ahooghe@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 00:57:30 by ahooghe           #+#    #+#             */
-/*   Updated: 2023/12/10 23:34:42 by ahooghe          ###   ########.fr       */
+/*   Updated: 2023/12/11 00:09:46 by ahooghe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ static void	dda(t_ray *ray, t_player *player, t_file *file)
 	{
 		ray->step_x = 1;
 		ray->sidedist_x = ray->deltadist_x * (ray->map_x + 1.0 - player->pos_x);
-		
 	}
 	if (player->dir_x < 0)
 	{
@@ -74,7 +73,7 @@ static void	dda(t_ray *ray, t_player *player, t_file *file)
 	if (player->dir_y > 0)
 	{
 		ray->step_y = 1;
-		ray->sidedist_y =  ray->deltadist_y * (ray->map_y + 1.0 - player->pos_y);
+		ray->sidedist_y = ray->deltadist_y * (ray->map_y + 1.0 - player->pos_y);
 	}
 	if (player->dir_y < 0)
 	{
@@ -84,10 +83,11 @@ static void	dda(t_ray *ray, t_player *player, t_file *file)
 	moredda(ray, file);
 	calculate_line(ray, player);
 }
+
 static void	raycasting(t_player *player, t_file *file, int x)
 {
-	t_ray ray;
-	
+	t_ray	ray;
+
 	while (x < WIDTH)
 	{
 		init_ray(&ray);
@@ -103,11 +103,12 @@ static void	raycasting(t_player *player, t_file *file, int x)
 		x++;
 	}
 }
+
 int	render(t_file *file)
 {
 	handle_movement(file);
 	malloc_texture_pixels(file, 0);
 	raycasting(&file->player, file, 0);
-	mlx(file, 0, 0);
+	mlx(&file->textures, file, 0, 0);
 	return (SUCCESS);
 }

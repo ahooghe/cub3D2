@@ -6,7 +6,7 @@
 /*   By: ahooghe <ahooghe@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 14:42:15 by ahooghe           #+#    #+#             */
-/*   Updated: 2023/12/10 17:45:33 by ahooghe          ###   ########.fr       */
+/*   Updated: 2023/12/11 00:09:57 by ahooghe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,7 +187,7 @@ void	handle_movement(t_file *file);
 int		render(t_file *file);
 void	malloc_texture_pixels(t_file *file, int i);
 void	draw_line(t_ray *ray, t_text *text, t_file *file, int x);
-void	mlx(t_file *file, int x, int y);
+void	mlx(t_text *tex, t_file *file, int x, int y);
 
 char	*ft_strdup(char *str1);
 char	*ft_substr(char *s, unsigned int start, size_t len);
