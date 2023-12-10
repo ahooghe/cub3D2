@@ -6,7 +6,7 @@
 /*   By: ahooghe <ahooghe@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 15:20:53 by ahooghe           #+#    #+#             */
-/*   Updated: 2023/12/10 17:18:11 by ahooghe          ###   ########.fr       */
+/*   Updated: 2023/12/10 22:19:37 by ahooghe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,6 @@ void	init_ray(t_ray *ray)
 	ray->plane_x = 0.0;
 	ray->plane_y = 0.0;
 	ray->camera_pos = 0.0;
-	ray->raydir_x = 0.0;
-	ray->raydir_y = 0.0;
 	ray->map_x = 0;
 	ray->map_y = 0;
 	ray->sidedist_x = 0.0;

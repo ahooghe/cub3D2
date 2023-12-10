@@ -6,16 +6,14 @@
 /*   By: ahooghe <ahooghe@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 15:52:10 by ahooghe           #+#    #+#             */
-/*   Updated: 2023/12/10 20:03:20 by ahooghe          ###   ########.fr       */
+/*   Updated: 2023/12/10 23:51:52 by ahooghe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 
-static void	initplayerns(t_file *file)
+static void	initplayer(t_file *file)
 {
-	file->player.dir_x = 0;
-	file->player.plane_y = 0;
 	if (file->map.dir == 'N')
 	{
 		file->player.dir_y = -1;
@@ -26,13 +24,7 @@ static void	initplayerns(t_file *file)
 		file->player.dir_y = 1;
 		file->player.plane_x = -0.50;
 	}
-}
-
-static void	initplayerew(t_file *file)
-{
-	file->player.dir_y = 0;
-	file->player.plane_x = 0;
-	if (file->map.dir == 'E')
+	else if (file->map.dir == 'E')
 	{
 		file->player.dir_x = 1;
 		file->player.plane_y = 0.50;
@@ -46,10 +38,9 @@ static void	initplayerew(t_file *file)
 
 static void	setplayerdir(t_file *file)
 {
-	if (file->map.dir == 'N' || file->map.dir == 'S')
-		initplayerns(file);
-	else if (file->map.dir == 'E' || file->map.dir == 'W')
-		initplayerew(file);
+	if (file->map.dir == 'N' || file->map.dir == 'S' || \
+		file->map.dir == 'E' || file->map.dir == 'W')
+		initplayer(file);
 	else
 		exit_cubed(file, "Invalid player direction.\n", FAILURE);
 }
