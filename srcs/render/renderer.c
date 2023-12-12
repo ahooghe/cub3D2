@@ -60,22 +60,22 @@ static void	moredda(t_ray *ray, t_file *file)
 
 static void	dda(t_ray *ray, t_player *player, t_file *file)
 {
-	if (player->dir_x > 0)
+	if (ray->raydir_x > 0)
 	{
 		ray->step_x = 1;
 		ray->sidedist_x = ray->deltadist_x * (ray->map_x + 1.0 - player->pos_x);
 	}
-	if (player->dir_x < 0)
+	else
 	{
 		ray->step_x = -1;
 		ray->sidedist_x = ray->deltadist_x * (player->pos_x - ray->map_x);
 	}
-	if (player->dir_y > 0)
+	if (ray->raydir_y > 0)
 	{
 		ray->step_y = 1;
 		ray->sidedist_y = ray->deltadist_y * (ray->map_y + 1.0 - player->pos_y);
 	}
-	if (player->dir_y < 0)
+	else
 	{
 		ray->step_y = -1;
 		ray->sidedist_y = ray->deltadist_y * (player->pos_y - ray->map_y);
